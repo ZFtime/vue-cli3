@@ -39,8 +39,8 @@
                                 <Icon type="ios-navigate"></Icon>
                             信息管理
                             </template>
-                            <MenuItem name="1">我的公司</MenuItem>
-                            <MenuItem name="2" >许可证管理</MenuItem>
+                            <MenuItem name="/About">我的公司</MenuItem>
+                            <MenuItem name="/test">许可证管理</MenuItem>
                             <MenuItem name="3">商标管理</MenuItem>
                             <MenuItem name="4">网站备案管理</MenuItem>
                         </Submenu>
@@ -92,7 +92,8 @@ export default {
   },
   methods: {
     goHome(name) {
-      this.$router.push({ path: "/About",name:"name" });
+        console.log(name);
+      this.$router.push(name);
     //   this.$router.push({ path: "/test",name:"name" });
     },
     // goIcp(name) {
