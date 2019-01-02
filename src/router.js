@@ -11,19 +11,26 @@ export default new Router({
       name: 'home',
       component: Home
     },{
-      path:"/MyCompany",
-      name:"MyCompany",
-      component:()=> import ('./views/MyCompany.vue')
+      path:"/Index",
+      name:"Index",
+      component:()=> import ('./views/index.vue'),
+      children:[
+        {
+          path: '/Edit-table',
+          name: 'edit-table',
+          component: () => import(/* webpackChunkName: "about" */ './views/table/edit-table.vue')
+        },
+        {
+          path:"/Export-table",
+          name:"export-table",
+          component:()=>import ('./views/table/export-table.vue')
+        },
+        {
+          path:"/Edit-from",
+          name:"edit-from",
+          component:()=>import ('./views/from/Edit-from.vue')
+        }
+      ]
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    },
-    {
-      path:'/test',
-      name:'test',
-      component:()=> import ('./views/test.vue')
-    }
   ]
 })
