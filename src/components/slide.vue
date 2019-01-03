@@ -16,14 +16,14 @@
           </template>
           <MenuItem name="/Edit-table">可编辑表格</MenuItem>
           <MenuItem name="/Export-table">导出表格</MenuItem>
-          <MenuItem name="1-3">Option 3</MenuItem>
+          <MenuItem name="/drag-table">拖拽列表</MenuItem>
         </Submenu>
         <Submenu name="2">
           <template slot="title">
             <Icon type="ios-keypad"></Icon>表单
           </template>
           <MenuItem name="/Edit-from">简单的表单验证</MenuItem>
-          <MenuItem name="2-2">Option 2</MenuItem>
+          <MenuItem name="/login">登录</MenuItem>
         </Submenu>
         <Submenu name="3">
           <template slot="title">

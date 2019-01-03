@@ -131,7 +131,9 @@ export default {
           }
           this.loading = false;
         })
-        .catch(error => {});
+        .catch(error => {
+          this.loading = false;
+        });
     },
     changePage(page,size){
         this.handleData(page,this.size);

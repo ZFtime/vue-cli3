@@ -1,17 +1,46 @@
 <style lang="less" scoped>
-  .from{
-    padding: 0px 20%;
-  }
+.from {
+  padding: 0px 10%;
+}
 </style>
 
 <template>
   <div class="from">
-    <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+    <Form
+      ref="formValidate"
+      :model="formValidate"
+      :rules="ruleValidate"
+      :label-width="80"
+      label-position="left"
+    >
       <FormItem label="名字" prop="name">
         <Input v-model="formValidate.name" placeholder="请输入名字"></Input>
       </FormItem>
       <FormItem label="邮箱" prop="mail">
         <Input v-model="formValidate.mail" placeholder="请输入邮箱"></Input>
+      </FormItem>
+      <FormItem
+        label="添加表格"
+        prop="add"
+        v-for="(item, index) in formValidate.items"
+        v-if="item.status"
+        :key="index"
+        :label="'Item ' + item.index"
+        :prop="'items.' + index + '.value'"
+        :rules="{required: true, message: 'Item ' + item.index +' 不能为空', trigger: 'blur'}"
+      >
+        <!-- 添加表格 -->
+        <Row>
+          <Col span="14">
+            <Input type="text" v-model="item.value" placeholder="请输入内容"></Input>
+          </Col>
+          <Col span="4" offset="1">
+            <Button @click="handleRemove(index)">删除</Button>
+          </Col>
+          <Col span="4" offset="1">
+            <Button @click="handleAdd">添加</Button>
+          </Col>
+        </Row>
       </FormItem>
       <FormItem label="城市" prop="city">
         <Select v-model="formValidate.city" placeholder="请选择城市">
@@ -57,6 +86,14 @@
           placeholder="描述"
         ></Input>
       </FormItem>
+      <FormItem label="上传文件" prop="desc">
+        <Upload multiple type="drag" action="//jsonplaceholder.typicode.com/posts/">
+          <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+            <p>Click or drag files here to upload</p>
+          </div>
+        </Upload>
+      </FormItem>
       <FormItem>
         <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
         <Button @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
@@ -68,6 +105,7 @@
 export default {
   data() {
     return {
+      index: 1,
       formValidate: {
         name: "",
         mail: "",
@@ -76,7 +114,14 @@ export default {
         interest: [],
         date: "2018-10-2",
         time: "",
-        desc: ""
+        desc: "",
+        items: [
+          {
+            value: "",
+            index: 1,
+            status: 1
+          }
+        ]
       },
       ruleValidate: {
         name: [
@@ -101,9 +146,7 @@ export default {
             trigger: "change"
           }
         ],
-        gender: [
-          { required: true, message: "请选择性别", trigger: "change" }
-        ],
+        gender: [{ required: true, message: "请选择性别", trigger: "change" }],
         interest: [
           {
             required: true,
@@ -163,6 +206,17 @@ export default {
     },
     handleReset(name) {
       this.$refs[name].resetFields();
+    },
+    handleAdd() {
+      this.index++;
+      this.formValidate.items.push({
+        value: "",
+        index: this.index,
+        status: 1
+      });
+    },
+    handleRemove(index) {
+      this.formValidate.items[index].status = 0;
     }
   }
 };

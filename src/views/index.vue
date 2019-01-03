@@ -4,20 +4,20 @@
 
 <template>
   <div class="about">
-         <div class="layout">
+    <div class="layout">
+      <Layout>
+        <myHeader/>
         <Layout>
-               <myHeader/>
-            <Layout>
-                <Sider hide-trigger :style="{background: '#fff'}">
-                   <mySlider/>
-                </Sider>
-                <Layout>
-                    <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
-                        <router-view></router-view>
-                    </Content>
-                </Layout>
-            </Layout>
+          <Sider hide-trigger :style="{background: '#fff'}">
+            <mySlider/>
+          </Sider>
+          <Layout>
+            <Content :style="{padding: '24px', minHeight: '280px', background: '#fff'}">
+              <router-view></router-view>
+            </Content>
+          </Layout>
         </Layout>
+      </Layout>
     </div>
   </div>
 </template>
