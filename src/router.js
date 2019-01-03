@@ -24,9 +24,9 @@ export default new Router({
         component: () => import('./views/table/export-table.vue')
       },
       {
-        path:"/drag-table",
-        name:"drag-table",
-        component:()=>import ('./views/table/drag-table.vue')
+        path: "/drag-table",
+        name: "drag-table",
+        component: () => import('./views/table/drag-table.vue')
       },
       {
         path: "/Edit-from",
@@ -37,6 +37,11 @@ export default new Router({
         path: "/login",
         name: "login",
         component: () => import('./views/from/login.vue')
+      },
+      {
+        path: "/tabs",
+        name: "tabs",
+        component: () => import('./views/rest/tabs.vue')
       }
     ]
   }, ]
