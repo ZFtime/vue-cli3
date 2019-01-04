@@ -30,7 +30,7 @@
             <Icon type="ios-analytics"></Icon>待开发
           </template>
           <MenuItem name="/tabs">标签页</MenuItem>
-          <MenuItem name="3-2">Option 2</MenuItem>
+          <MenuItem name="/Transfer">穿梭框</MenuItem>
         </Submenu>
       </Menu>
     </Layout>

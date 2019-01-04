@@ -1,5 +1,9 @@
 <style lang="less">
 .edit {
+  .btn {
+    text-align: left;
+    height: 50px;
+  }
   .page {
     float: right;
     padding-top: 10px;
@@ -9,6 +13,48 @@
 
 <template>
   <div class="edit">
+    <div class="btn">
+      <Button type="primary" @click="ok">添加</Button>
+      <Modal title="添加数据" v-model="modal1" @on-ok="handleSubmit('formAdd')" @on-cancel="cancel">
+        <div class="form">
+          <Form :model="formAdd" :label-width="80" :rules="ruleValidate" ref="formAdd">
+            <FormItem label="名字" prop="name">
+              <Input v-model="formAdd.name" placeholder="请输入名字"></Input>
+            </FormItem>
+            <FormItem label="歌手" prop="singer">
+              <Input v-model="formAdd.singer" placeholder="请输入歌手"></Input>
+            </FormItem>
+            <FormItem label="年份" prop="year">
+              <Input v-model="formAdd.year" placeholder="请输入年份"></Input>
+            </FormItem>
+            <FormItem label="描述" prop="describe">
+              <Input v-model="formAdd.describe" placeholder="请输入描述"></Input>
+            </FormItem>
+            <FormItem label="点赞数" prop="praisePoints">
+              <Input v-model="formAdd.praisePoints" placeholder="请输入点赞数"></Input>
+            </FormItem>
+            <FormItem label="评论数" prop="comment">
+              <Input v-model="formAdd.comment" placeholder="请输入点赞数"></Input>
+            </FormItem>
+            <Button type="primary" @click="handleSubmit('formAdd')">Submit</Button>
+          </Form>
+        </div>
+        <slot name="footer">
+          <div class="ivu-modal-footer">
+            <button type="button" class="ivu-btn ivu-btn-text ivu-btn-large">
+              <!---->
+              <!---->
+              <span>取消</span>
+            </button>
+            <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-large">
+              <!---->
+              <!---->
+              <span>确定</span>
+            </button>
+          </div>
+        </slot>
+      </Modal>
+    </div>
     <Table border :columns="columns12" :data="data1" :loading="loading">
       <template slot-scope="{ row }" slot="name">
         <strong>{{ row.name }}</strong>
@@ -18,6 +64,7 @@
         <Button type="error" size="small" @click="remove(index)">删除</Button>
       </template>
     </Table>
+
     <div class="page">
       <Page :total="total" @on-change="togglePage" :page-size="size"/>
     </div>
@@ -76,7 +123,59 @@ export default {
       page: 1,
       total: 0,
       size: 5,
-      loading: ""
+      loading: "",
+      modal1: false,
+      formAdd: {
+        name: "",
+        singer: "",
+        year: "",
+        describe: "",
+        praisePoints: "",
+        comment: ""
+      },
+      ruleValidate: {
+        name: [
+          {
+            required: true,
+            message: "名字不能为空",
+            trigger: "blur"
+          }
+        ],
+        singer: [
+          {
+            required: true,
+            message: "邮箱不能为空",
+            trigger: "blur"
+          }
+        ],
+        year: [
+          {
+            required: true,
+            message: "年份不能为空",
+            trigger: "blur"
+          }
+        ],
+        describe: [
+          { required: true, message: "描述不能为空", trigger: "blur" }
+        ],
+        praisePoints: [
+          {
+            required: true,
+            type: "array",
+            min: 1,
+            message: "点赞数不能为空",
+            trigger: "blur"
+          }
+        ],
+        comment: [
+          {
+            required: true,
+            type: "string",
+            message: "评论数不能为空",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   mounted() {
@@ -123,6 +222,27 @@ export default {
     togglePage(page, size) {
       // page是切换页码的回调函数
       this.getData(page, this.size);
+    },
+    ok() {
+      this.modal1 = true;
+      console.log(111);
+      setTimeout(() => {
+        this.$Message.info("Clicked ok");
+      }, 2000);
+    },
+    cancel() {
+      this.$Message.info("Clicked cancel");
+    },
+    handleSubmit(name) {
+      this.$refs[name].validate(valid => {
+        if (valid) {
+          this.$Message.success("提交成功!");
+        } else {
+          this.modal1 = false;
+          this.$Message.error("提交失败!");
+          console.log(this.modal1);
+        }
+      });
     }
   }
 };

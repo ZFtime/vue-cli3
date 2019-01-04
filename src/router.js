@@ -42,6 +42,11 @@ export default new Router({
         path: "/tabs",
         name: "tabs",
         component: () => import('./views/rest/tabs.vue')
+      },
+      {
+        path: "/transfer",
+        name: "transfer",
+        component: () => import('./views/rest/transfer.vue')
       }
     ]
   }, ]
