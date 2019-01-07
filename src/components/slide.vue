@@ -32,6 +32,8 @@
           <MenuItem name="/tabs">标签页</MenuItem>
           <MenuItem name="/Transfer">穿梭框</MenuItem>
           <MenuItem name="/Tree-iview">树形控件</MenuItem>
+          <MenuItem name="/Grid">栅格系统</MenuItem>
+          <MenuItem name="/Collapse">折叠板</MenuItem>
         </Submenu>
       </Menu>
     </Layout>

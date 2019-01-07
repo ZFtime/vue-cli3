@@ -234,13 +234,13 @@ export default {
           this.modal1 = false;
           this.$Message.success("提交成功!");
           // console.log(this.formAdd);
+          // 在这里暂时实现一个添加
+          this.data1.push(this.formAdd);
         } else {
           this.modal1 = true;
           this.$Message.error("提交失败!");
         }
       });
-      // 在这里暂时实现一个添加
-      this.data1.push(this.formAdd)
     }
   }
 };

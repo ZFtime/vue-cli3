@@ -52,6 +52,16 @@ export default new Router({
         path: "/Tree-iview",
         name: "tree-iview",
         component: () => import('./views/rest/Tree-iview.vue')
+      },
+      {
+        path: "/Grid",
+        name: "grid",
+        component: () => import('./views/rest/grid/grid.vue')
+      },
+      {
+        path: "/Collapse",
+        name: "collapse",
+        component: () => import('./views/rest/collapse.vue')
       }
     ]
   }, ]
