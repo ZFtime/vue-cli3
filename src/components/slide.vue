@@ -31,6 +31,7 @@
           </template>
           <MenuItem name="/tabs">标签页</MenuItem>
           <MenuItem name="/Transfer">穿梭框</MenuItem>
+          <MenuItem name="/Tree-iview">树形控件</MenuItem>
         </Submenu>
       </Menu>
     </Layout>

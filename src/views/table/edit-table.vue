@@ -36,23 +36,13 @@
             <FormItem label="评论数" prop="comment">
               <Input v-model="formAdd.comment" placeholder="请输入点赞数"></Input>
             </FormItem>
-            <Button type="primary" @click="handleSubmit('formAdd')">Submit</Button>
+            <!-- <Button type="primary" @click="handleSubmit('formAdd')">Submit</Button> -->
           </Form>
         </div>
-        <slot name="footer">
-          <div class="ivu-modal-footer">
-            <button type="button" class="ivu-btn ivu-btn-text ivu-btn-large">
-              <!---->
-              <!---->
-              <span>取消</span>
-            </button>
-            <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-large">
-              <!---->
-              <!---->
-              <span>确定</span>
-            </button>
-          </div>
-        </slot>
+        <Row slot="footer">
+          <Button type="text" @click="cancel">取消</Button>
+          <Button type="primary" @click="handleSubmit('formAdd')">确定</Button>
+        </Row>
       </Modal>
     </div>
     <Table border :columns="columns12" :data="data1" :loading="loading">
@@ -75,6 +65,13 @@
 import axios from "axios";
 export default {
   data() {
+    const validateMobile = (rule, value, callback) => {
+      if (!Number.isInteger(+value)) {
+        callback(new Error("请输入数字的格式"));
+      } else {
+        callback();
+      }
+    };
     return {
       columns12: [
         {
@@ -144,7 +141,7 @@ export default {
         singer: [
           {
             required: true,
-            message: "邮箱不能为空",
+            message: "歌手不能为空",
             trigger: "blur"
           }
         ],
@@ -161,19 +158,18 @@ export default {
         praisePoints: [
           {
             required: true,
-            type: "array",
-            min: 1,
             message: "点赞数不能为空",
             trigger: "blur"
-          }
+          },
+          { validator: validateMobile, trigger: "blur" }
         ],
         comment: [
           {
             required: true,
-            type: "string",
             message: "评论数不能为空",
             trigger: "blur"
-          }
+          },
+          { validator: validateMobile, trigger: "blur" }
         ]
       }
     };
@@ -225,24 +221,26 @@ export default {
     },
     ok() {
       this.modal1 = true;
-      console.log(111);
-      setTimeout(() => {
-        this.$Message.info("Clicked ok");
-      }, 2000);
+      // this.$Message.info("我点击了添加");
+      // this.$Message.info("Clicked ok");
     },
     cancel() {
-      this.$Message.info("Clicked cancel");
+      this.modal1 = false;
+      this.$Message.info("取消添加");
     },
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          this.$Message.success("提交成功!");
-        } else {
           this.modal1 = false;
+          this.$Message.success("提交成功!");
+          // console.log(this.formAdd);
+        } else {
+          this.modal1 = true;
           this.$Message.error("提交失败!");
-          console.log(this.modal1);
         }
       });
+      // 在这里暂时实现一个添加
+      this.data1.push(this.formAdd)
     }
   }
 };

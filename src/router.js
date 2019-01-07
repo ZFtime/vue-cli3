@@ -47,6 +47,11 @@ export default new Router({
         path: "/transfer",
         name: "transfer",
         component: () => import('./views/rest/transfer.vue')
+      },
+      {
+        path: "/Tree-iview",
+        name: "tree-iview",
+        component: () => import('./views/rest/Tree-iview.vue')
       }
     ]
   }, ]
